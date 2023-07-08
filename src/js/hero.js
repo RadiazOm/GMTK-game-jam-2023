@@ -1,4 +1,4 @@
-import { Actor, Vector, CollisionType, CircleCollider } from "excalibur"
+import { Actor, Vector, CollisionType, CircleCollider, Timer } from "excalibur"
 import { Resources } from "./resources"
 import { Enemy } from "./enemies/enemy"
 
@@ -10,6 +10,7 @@ export class Hero extends Actor {
     path = [new Vector(40,170),new Vector(40,100),new Vector(180,100),new Vector(180,40),new Vector(280,40),new Vector(280,170)]
     currentPath = 0;
     inCombat = false
+    inCombatTime = 0;
 
 
     constructor() {
@@ -32,6 +33,14 @@ export class Hero extends Actor {
         this.addChild(this.activeZone)
 
         this.on('collisionstart', (event) => {this.onCollision(event)})
+
+        let timer = new Timer({
+            fcn: () => {this.inCombatTime--},
+            interval: 1000,
+            repeats: true
+        })
+        this.engine.currentScene.add(timer)
+        timer.start()
     }
 
     onPreUpdate() {
@@ -39,12 +48,19 @@ export class Hero extends Actor {
             this.currentPath++
             this.actions.moveTo(this.path[this.currentPath], 50)
         }
+
+        if (this.inCombatTime == 0) {
+            this.inCombat = false
+            this.actions.moveTo(this.path[this.currentPath], 50)
+            this.inCombatTime--
+        }
     }
 
     
     onPreCollision(event) {
         if (event.other instanceof Enemy) {
             this.actions.moveTo(event.other.pos, 50)
+            this.inCombatTime = 3;
 
             if (this.inCombat == false) {
                 this.inCombat = true
