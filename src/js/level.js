@@ -1,6 +1,6 @@
 import { Scene, Physics, Actor, Vector, Shape, CompositeCollider, CollisionType } from "excalibur"
 import { Hero } from "./hero"
-import { Enemy } from "./enemy"
+import { Enemy } from "./enemies/enemy"
 import { Resources } from "./resources";
 import { WallCollision } from "./wallcollision";
 import { GameUI } from "./gameUI";
@@ -25,7 +25,7 @@ export class Level extends Scene {
         bg.graphics.use(Resources.Map.toSprite())
         this.add(bg)
 
-        const gameUI = new GameUI(3)
+        const gameUI = new GameUI(['crab', 'crab', 'crab'])
         this.add(gameUI)
     }
 
@@ -49,6 +49,9 @@ export class Level extends Scene {
     }
 
     startGame() {
+        if (this.start == true) {
+            return;
+        }
         this.start = true
         this.hero = new Hero()
         this.add(this.hero)

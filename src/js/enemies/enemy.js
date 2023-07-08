@@ -1,6 +1,6 @@
 import { Actor, Vector, CollisionType, CircleCollider, CollisionStartEvent } from "excalibur";
-import { Resources } from "./resources";
-import { Hero } from "./hero";
+import { Resources } from "../resources";
+import { Hero } from "../hero";
 
 export class Enemy extends Actor {
 
@@ -8,8 +8,11 @@ export class Enemy extends Actor {
     wallCollision
     held = false
     activeZone
-    health = 3
+    health = 1
     attack = 1
+    speed = 50
+    attackRadius = 50
+    sprite = new Vector(1,9)
 
     constructor(wallCollision) {
         super({
@@ -22,11 +25,11 @@ export class Enemy extends Actor {
 
     onInitialize(engine) {
         this.engine = engine
-        this.graphics.use(Resources.TilemapPacked.getSprite(1,9))
+        this.graphics.use(Resources.TilemapPacked.getSprite(this.sprite.x, this.sprite.y))
         this.body.collisionType = CollisionType.Passive
 
         this.activeZone = new Actor({
-            collider: new CircleCollider({radius: 50})
+            collider: new CircleCollider({radius: this.attackRadius})
         })
         this.activeZone.on('precollision', (event) => {this.onPreCollision(event)})
         this.addChild(this.activeZone)
@@ -43,7 +46,7 @@ export class Enemy extends Actor {
 
     onPreCollision(event) {
         if (!this.held && event.other instanceof Hero) {
-            this.actions.moveTo(event.other.pos, 50)
+            this.actions.moveTo(event.other.pos, this.speed)
         }
     }
 

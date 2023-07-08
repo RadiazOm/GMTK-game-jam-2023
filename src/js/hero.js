@@ -1,11 +1,11 @@
 import { Actor, Vector, CollisionType, CircleCollider } from "excalibur"
 import { Resources } from "./resources"
-import { Enemy } from "./enemy";
+import { Enemy } from "./enemies/enemy"
 
 export class Hero extends Actor {
 
     engine;
-    health = 5;
+    health = 10;
     attack = 2;
     path = [new Vector(40,170),new Vector(40,100),new Vector(180,100),new Vector(180,40),new Vector(280,40),new Vector(280,170)]
     currentPath = 0;

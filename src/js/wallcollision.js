@@ -1,5 +1,5 @@
 import { Actor, Vector, CollisionType } from "excalibur";
-import { Enemy } from "./enemy";
+import { Enemy } from "./enemies/enemy"
 
 export class WallCollision extends Actor {
 
