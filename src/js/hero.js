@@ -13,11 +13,12 @@ export class Hero extends Actor {
     inCombatTime = 0;
 
 
-    constructor() {
+    constructor(path) {
         super({
             width: 16,
             height: 16
         })
+        this.path = path
     }
 
     onInitialize(engine) {

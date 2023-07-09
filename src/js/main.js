@@ -1,6 +1,7 @@
 import { Engine, DisplayMode, Physics } from "excalibur";
 import { ResourceLoader } from "./resources";
 import { Level } from "./level";
+import { Level2 } from "./level2";
 
 export class Game extends Engine {
     constructor() {
@@ -16,9 +17,10 @@ export class Game extends Engine {
     }
 
     startGame() {
-        this.addScene('level', new Level())
+        this.addScene('level1', new Level())
+        this.addScene('level2', new Level2())
 
-        this.goToScene('level')
+        this.goToScene('level2')
     }
 }
 

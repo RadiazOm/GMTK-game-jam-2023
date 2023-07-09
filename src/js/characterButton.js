@@ -55,6 +55,7 @@ export class CharacterButton extends Actor {
         this.engine.currentScene.add(enemy)
         this.capacity--
         this.counter.text = this.capacity.toString()
+        this.engine.currentScene.enemies.push(enemy)
     }
 
     getCharacterSprite(enemy) {
