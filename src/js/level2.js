@@ -138,6 +138,7 @@ export class Level2 extends Scene {
     heroWin(event) {
         if (event.other instanceof Hero) {
             this.hero.actions.clearActions()
+            this.hero.inCombatTime = -1
 
             for (const enemy of this.enemies) {
                 enemy.actions.clearActions()

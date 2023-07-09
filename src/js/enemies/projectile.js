@@ -19,7 +19,7 @@ export class Projectile extends Actor {
     }
 
     onInitialize() {
-        this.graphics.use(Resources.TilemapPacked.getSprite(1,1))
+        this.graphics.use(Resources.TilemapPacked.getSprite(0,11))
         this.pos = this.position
         let normalizedDirection = this.direction.normalize()
         this.vel = new Vector(-normalizedDirection.x * 20, -normalizedDirection.y * 20)

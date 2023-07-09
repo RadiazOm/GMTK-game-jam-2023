@@ -19,7 +19,7 @@ const TilemapPacked = new ImageSource(tilemapPacked)
 const spritesheet = SpriteSheet.fromImageSource({
   image: TilemapPacked,
   grid: {
-      rows: 12,
+      rows: 13,
       columns: 11,
       spriteHeight: 16,
       spriteWidth: 16
