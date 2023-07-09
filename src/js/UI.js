@@ -28,5 +28,23 @@ export class UI extends ScreenElement {
             spriteSheet: spriteFontSheet,
             spacing: 0,
         })
+
+        
+        const SpriteTinySheet = SpriteSheet.fromImageSource({
+            image: Resources.TinyFont,
+            grid: {
+                rows: 4,
+                columns: 13,
+                spriteWidth: 7,
+                spriteHeight: 9
+            }
+        })
+
+        this.tinyFont = new SpriteFont({
+            alphabet: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ., :!()1234567890[]{}-',
+            caseInsensitive: true,
+            spriteSheet: SpriteTinySheet,
+            spacing: 0
+        })
     }
 }

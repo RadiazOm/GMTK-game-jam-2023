@@ -3,6 +3,8 @@ import { Resources } from "./resources";
 import { Enemy } from "./enemies/enemy"
 import { Orc } from "./enemies/orcEnemy";
 import { Crab } from "./enemies/crabEnemy";
+import { Rat } from "./enemies/ratEnemy";
+import { EvilWizard } from "./enemies/wizardEnemy";
 
 export class CharacterButton extends Actor {
 
@@ -50,12 +52,12 @@ export class CharacterButton extends Actor {
             return;
         }
         let enemy = this.getCharacterInstance(this.character)
-        console.log(enemy)
         enemy.held = true
         this.engine.currentScene.add(enemy)
         this.capacity--
         this.counter.text = this.capacity.toString()
         this.engine.currentScene.enemies.push(enemy)
+        Resources.PickupSound.play()
     }
 
     getCharacterSprite(enemy) {
@@ -64,6 +66,10 @@ export class CharacterButton extends Actor {
                 return new Vector(2,9)
             case 'orc':
                 return new Vector(1,9)
+            case 'rat':
+                return new Vector(3,10)
+            case 'wizard':
+                return new Vector(3,9)
             default:
                 return new Vector(1,9)
         }
@@ -75,6 +81,10 @@ export class CharacterButton extends Actor {
                 return new Crab(this.engine.currentScene.wallCollision)
             case 'orc':
                 return new Orc(this.engine.currentScene.wallCollision)
+            case 'rat':
+                return new Rat(this.engine.currentScene.wallCollision)
+            case 'wizard':
+                return new EvilWizard(this.engine.currentScene.wallCollision)
             default:
                 return new Enemy(this.engine.currentScene.wallCollision)
         }

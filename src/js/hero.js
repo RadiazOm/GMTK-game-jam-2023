@@ -1,6 +1,7 @@
 import { Actor, Vector, CollisionType, CircleCollider, Timer } from "excalibur"
 import { Resources } from "./resources"
 import { Enemy } from "./enemies/enemy"
+import { Projectile } from "./enemies/projectile";
 
 export class Hero extends Actor {
 
@@ -59,7 +60,7 @@ export class Hero extends Actor {
 
     
     onPreCollision(event) {
-        if (event.other instanceof Enemy) {
+        if (event.other instanceof Enemy || this.pushBackState == false) {
             this.actions.moveTo(event.other.pos, 50)
             this.inCombatTime = 3;
 
@@ -68,23 +69,24 @@ export class Hero extends Actor {
                 this.actions.clearActions()
             }
         }
-        
     }
 
     onCollision(event) {
-        if (event.other instanceof Enemy) {
+        if (event.other instanceof Enemy || event.other instanceof Projectile) {
+            Resources.HitSound.play()
             this.health -= event.other.attack
             event.other.health -= this.attack
             this.pushBack(event.other)
-            event.other.pushBack(this)
-            if (this.health <= 0) {
-                this.kill()
-            }
-
             if (event.other.health <= 0) {
                 event.other.kill()
                 this.actions.moveTo(this.path[this.currentPath], 50)
                 this.inCombat = false
+            } else {
+                event.other.pushBack(this)
+            }
+            if (this.health <= 0) {
+                this.kill()
+                this.engine.currentScene.enemiesWin()
             }
         }
     }

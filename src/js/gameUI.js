@@ -41,7 +41,8 @@ export class GameUI extends UI {
         for (const characterButton of this.characterbuttons) {
             characterButton.actions.easeTo(new Vector(characterButton.pos.x, 220), 1000, EasingFunctions.EaseInOutCubic)
         }
-        this.startButton.actions.easeTo(new Vector(this.startButton.pos.x, this.startButton.pos.y - 60), 1000, EasingFunctions.EaseInOutCubic)
+        this.startButton.actions.easeTo(new Vector(this.startButton.pos.x, -60), 1000, EasingFunctions.EaseInOutCubic)
+        Resources.ClickSound.play()
     }
 
     retry() {
@@ -50,6 +51,7 @@ export class GameUI extends UI {
             characterButton.capacity = 1
             characterButton.counter.text = '1'
         }
-        this.startButton.actions.easeTo(new Vector(this.startButton.pos.x, this.startButton.pos.y + 60), 1000, EasingFunctions.EaseInOutCubic)
+        this.startButton.actions.easeTo(new Vector(this.startButton.pos.x, 0), 1000, EasingFunctions.EaseInOutCubic)
+        Resources.ClickSound.play()
     }
 }
